@@ -15,6 +15,8 @@ let CurrencyTab = React.createClass({
     handleTouchTap: React.PropTypes.func,
     selected: React.PropTypes.bool,
     width: React.PropTypes.string,
+    hasPrefix: React.PropTypes.bool,
+    prefix: React.PropTypes.string,
   },
 
   handleTouchTap() {
@@ -53,19 +55,35 @@ let CurrencyTab = React.createClass({
       'width': this.props.width,
     };
     if (this.props.selected){
-      return (
-        <div style={selectedStyle} onTouchTap={this.handleTouchTap} routeName={this.props.route}>
-          <span>BTC</span>
-          <span>{this.props.label}</span>
-        </div>
-      );
+      if (this.props.hasPrefix){
+        return (
+          <div style={selectedStyle} onTouchTap={this.handleTouchTap} routeName={this.props.route}>
+            <span>{this.props.prefix}</span>
+            <span>{this.props.label}</span>
+          </div>
+        );
+      } else {
+        return (
+          <div style={selectedStyle} onTouchTap={this.handleTouchTap} routeName={this.props.route}>
+            <span>{this.props.label}</span>
+          </div>
+        );
+      }
     } else {
-      return (
-        <div style={styles} onTouchTap={this.handleTouchTap} routeName={this.props.route}>
-          <span style={{color: 'black', opacity: '.3'}}>BTC</span>
-          <span style={{color: 'black', opacity: '1'}}>{this.props.label}</span>
-        </div>
-      );
+      if (this.props.hasPrefix){
+        return (
+          <div style={styles} onTouchTap={this.handleTouchTap} routeName={this.props.route}>
+            <span style={{color: 'black', opacity: '.3'}}>{this.props.prefix}</span>
+            <span style={{color: 'black', opacity: '1'}}>{this.props.label}</span>
+          </div>
+        );
+      } else {
+        return (
+          <div style={styles} onTouchTap={this.handleTouchTap} routeName={this.props.route}>
+            <span style={{color: 'black', opacity: '1'}}>{this.props.label}</span>
+          </div>
+        );
+      }
     }
   },
 
